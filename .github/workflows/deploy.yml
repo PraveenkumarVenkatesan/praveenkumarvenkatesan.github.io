@@ -33,12 +33,30 @@ jobs:
         
       - name: Compile and Build Site
         run: npm run build
+
+      - name: Check GitHub Pages status
+        id: pages_status
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh api "repos/${{ github.repository }}/pages" --silent >/tmp/pages-response.json 2>/tmp/pages-error.log; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          elif grep -q "HTTP 404" /tmp/pages-error.log; then
+            echo "::warning::GitHub Pages is not enabled for this repository. Skipping deployment. Enable it at https://github.com/${{ github.repository }}/settings/pages."
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "::error::Unable to verify GitHub Pages status."
+            cat /tmp/pages-error.log
+            exit 1
+          fi
         
       - name: Upload Build Output
+        if: steps.pages_status.outputs.enabled == 'true'
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
           
       - name: Publish to GitHub Pages
+        if: steps.pages_status.outputs.enabled == 'true'
         id: deployment
         uses: actions/deploy-pages@v4
