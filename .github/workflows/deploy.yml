@@ -1,0 +1,44 @@
+name: Deploy Lovable Website
+
+on:
+  push:
+    branches: ["main"]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          
+      - name: Install Project Dependencies
+        run: npm ci || npm install
+        
+      - name: Compile and Build Site
+        run: npm run build
+        
+      - name: Upload Build Output
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+          
+      - name: Publish to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
