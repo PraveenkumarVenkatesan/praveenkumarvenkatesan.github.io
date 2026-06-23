@@ -39,14 +39,16 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if gh api "repos/${{ github.repository }}/pages" --silent >/tmp/pages-response.json 2>/tmp/pages-error.log; then
+          pages_api_response="$RUNNER_TEMP/pages-api-response.txt"
+
+          if gh api --include "repos/${{ github.repository }}/pages" >"$pages_api_response" 2>&1; then
             echo "enabled=true" >> "$GITHUB_OUTPUT"
-          elif grep -q "HTTP 404" /tmp/pages-error.log; then
+          elif grep -Eq "^HTTP/[0-9.]+ 404" "$pages_api_response"; then
             echo "::warning::GitHub Pages is not enabled for this repository. Skipping deployment. Enable it at https://github.com/${{ github.repository }}/settings/pages."
             echo "enabled=false" >> "$GITHUB_OUTPUT"
           else
             echo "::error::Unable to verify GitHub Pages status."
-            cat /tmp/pages-error.log
+            cat "$pages_api_response"
             exit 1
           fi
         
