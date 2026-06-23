@@ -19,13 +19,24 @@ interface Photo {
   image: string;
 }
 
+const getPhotoUrl = (path: string) => {
+  if (path.startsWith("http")) {
+    return path;
+  }
+  // Ensure path starts with / for consistency
+  const normalizedPath = path.startsWith("/") ? path : `/${path}`;
+  // Remove trailing slash from BASE_URL to avoid double slashes
+  const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
+  return `${baseUrl}${normalizedPath}`;
+};
+
 const photos: Photo[] = [
   {
     id: 1,
     category: "wildlife",
     title: "Family of monkeys",
     location: "IIT Madras, Chennai, India",
-    image: "/photography/monkeys_iitm.jpeg",
+    image: getPhotoUrl("/photography/monkeys_iitm.jpeg"),
   },
   {
     id: 2,
@@ -79,7 +90,7 @@ const photos: Photo[] = [
     category: "nature",
     title: "Snail at Tropical Forest",
     location: "Munnar, Kerala, India",
-    image: "/photography/snail.jpeg",
+    image: getPhotoUrl("/photography/snail.jpeg"),
   },
 ];
 

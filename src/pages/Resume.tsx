@@ -53,7 +53,7 @@ const Resume = () => {
             <div className="w-16 2xl:w-20 h-1 bg-primary mx-auto rounded-full mb-6" />
             
             <Button asChild className="gap-2 bg-primary hover:bg-primary/90 2xl:text-base 2xl:px-6 2xl:py-3">
-              <a href="/resume.pdf"
+              <a href={`${import.meta.env.BASE_URL}resume.pdf`}
                 target="_blank"
                 rel="noopener noreferrer"
               >
