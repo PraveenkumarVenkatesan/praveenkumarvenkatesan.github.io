@@ -25,7 +25,9 @@ const getPhotoUrl = (path: string) => {
   }
   // Ensure path starts with / for consistency
   const normalizedPath = path.startsWith("/") ? path : `/${path}`;
-  return `${import.meta.env.BASE_URL}${normalizedPath.slice(1)}`;
+  // Remove trailing slash from BASE_URL to avoid double slashes
+  const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
+  return `${baseUrl}${normalizedPath}`;
 };
 
 const photos: Photo[] = [
