@@ -26,7 +26,7 @@ const getPhotoUrl = (path: string) => {
   // Ensure path starts with / for consistency
   const normalizedPath = path.startsWith("/") ? path : `/${path}`;
   // Remove trailing slash from BASE_URL to avoid double slashes
-  const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
+  const baseUrl = (import.meta.env.BASE_URL || "/").replace(/\/$/, "");
   return `${baseUrl}${normalizedPath}`;
 };
 
