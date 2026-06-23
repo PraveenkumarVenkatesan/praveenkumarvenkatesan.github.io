@@ -40,7 +40,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           if [ -z "${RUNNER_TEMP:-}" ]; then
-            echo "::error::RUNNER_TEMP environment variable is required for temporary file storage but is not set."
+            echo "::error::RUNNER_TEMP environment variable is required for temporary file storage but is not set. This is unexpected in a GitHub Actions runner."
             exit 1
           fi
 
@@ -48,7 +48,7 @@ jobs:
 
           if gh api --include "repos/${{ github.repository }}/pages" >"$pages_api_response" 2>&1; then
             echo "enabled=true" >> "$GITHUB_OUTPUT"
-          elif grep -Eq "^HTTP/[^ ]+ 404" "$pages_api_response"; then
+          elif grep -Eq "^HTTP/[^ ]+ +404" "$pages_api_response"; then
             echo "::warning::GitHub Pages is not enabled for this repository. Skipping deployment. Enable it at https://github.com/${{ github.repository }}/settings/pages."
             echo "enabled=false" >> "$GITHUB_OUTPUT"
           else
