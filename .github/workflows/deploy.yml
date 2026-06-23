@@ -48,7 +48,7 @@ jobs:
 
           if gh api --include "repos/${{ github.repository }}/pages" >"$pages_api_response" 2>&1; then
             echo "enabled=true" >> "$GITHUB_OUTPUT"
-          elif grep -Eq "^HTTP/[0-9]+\.[0-9]+ 404" "$pages_api_response"; then
+          elif grep -Eq "^HTTP/[^ ]+ 404" "$pages_api_response"; then
             echo "::warning::GitHub Pages is not enabled for this repository. Skipping deployment. Enable it at https://github.com/${{ github.repository }}/settings/pages."
             echo "enabled=false" >> "$GITHUB_OUTPUT"
           else
