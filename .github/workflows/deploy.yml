@@ -33,12 +33,37 @@ jobs:
         
       - name: Compile and Build Site
         run: npm run build
+
+      - name: Check GitHub Pages status
+        id: pages_status
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ -z "${RUNNER_TEMP:-}" ]; then
+            echo "::error::RUNNER_TEMP environment variable is required for temporary file storage but is not set. This is unexpected in a GitHub Actions runner."
+            exit 1
+          fi
+
+          pages_api_response="${RUNNER_TEMP}/pages-api-response.txt"
+
+          if gh api --include "repos/${{ github.repository }}/pages" >"$pages_api_response" 2>&1; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          elif grep -Eq "^HTTP/[0-9.]+ +404" "$pages_api_response"; then
+            echo "::warning title=GitHub Pages disabled::Skipping deployment. Enable Pages at https://github.com/${{ github.repository }}/settings/pages."
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "::error::Unable to verify GitHub Pages status."
+            cat "$pages_api_response"
+            exit 1
+          fi
         
       - name: Upload Build Output
+        if: steps.pages_status.outputs.enabled == 'true'
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
           
       - name: Publish to GitHub Pages
+        if: steps.pages_status.outputs.enabled == 'true'
         id: deployment
         uses: actions/deploy-pages@v4
