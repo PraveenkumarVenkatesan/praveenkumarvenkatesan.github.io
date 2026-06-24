@@ -25,7 +25,9 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  base: '/Personal-Website/', // 👈 Added for GitHub Pages (Matches your folder/repo name)
+  // GitHub Pages serves from /Personal-Website/ in production,
+  // but local dev (npm run dev) serves from the root for easy previewing.
+  base: mode === 'production' ? '/Personal-Website/' : '/',
   server: {
     host: "::",
     port: 8080,

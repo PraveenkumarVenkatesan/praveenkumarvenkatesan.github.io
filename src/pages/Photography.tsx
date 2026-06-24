@@ -97,6 +97,7 @@ const photos: Photo[] = [
 const Photography = () => {
   const [activeTab, setActiveTab] = useState<PhotoCategory>("all");
   const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   const filteredPhotos = photos.filter(
     (photo) => activeTab === "all" || photo.category === activeTab
@@ -134,11 +135,22 @@ const Photography = () => {
           {/* Photo Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {filteredPhotos.map((photo, index) => (
-              <article
+              <div
                 key={photo.id}
-                className="glass-panel-subtle overflow-hidden group animate-fade-in cursor-pointer"
+                className="animate-fade-in"
                 style={{ animationDelay: `${index * 0.05}s` }}
+              >
+              <article
+                className={`glass-panel-subtle overflow-hidden group h-full transition-all duration-300 ease-out cursor-pointer ${
+                  hoveredIndex === null
+                    ? ""
+                    : hoveredIndex === index
+                    ? "scale-[1.08] shadow-glow border-primary/60 z-20 relative -translate-y-2"
+                    : "blur-[2px] opacity-40 scale-[0.97]"
+                }`}
                 onClick={() => setSelectedPhoto(photo)}
+                onMouseEnter={() => setHoveredIndex(index)}
+                onMouseLeave={() => setHoveredIndex(null)}
               >
                 {/* Image */}
                 <div className="aspect-[3/2] overflow-hidden">
@@ -174,6 +186,7 @@ const Photography = () => {
                   </div>
                 </div>
               </article>
+              </div>
             ))}
           </div>
 

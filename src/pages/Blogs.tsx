@@ -14,6 +14,7 @@ import { getAllBlogPosts, BlogPost } from "@/lib/blogLoader";
 
 const Blogs = () => {
   const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const blogPosts = getAllBlogPosts();
 
   return (
@@ -32,11 +33,22 @@ const Blogs = () => {
           {/* Blog Posts Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {blogPosts.map((post, index) => (
-              <article
+              <div
                 key={post.slug}
-                className="glass-panel overflow-hidden group hover:border-primary/40 transition-all duration-300 animate-fade-in cursor-pointer"
+                className="animate-fade-in"
                 style={{ animationDelay: `${0.1 + index * 0.1}s` }}
+              >
+              <article
+                className={`glass-panel overflow-hidden group h-full transition-all duration-300 ease-out cursor-pointer ${
+                  hoveredIndex === null
+                    ? ""
+                    : hoveredIndex === index
+                    ? "scale-[1.08] shadow-glow border-primary/60 z-20 relative -translate-y-2"
+                    : "blur-[2px] opacity-40 scale-[0.97]"
+                }`}
                 onClick={() => setSelectedPost(post)}
+                onMouseEnter={() => setHoveredIndex(index)}
+                onMouseLeave={() => setHoveredIndex(null)}
               >
                 {/* Thumbnail */}
                 {post.thumbnail && (
@@ -88,6 +100,7 @@ const Blogs = () => {
                   </div>
                 </div>
               </article>
+              </div>
             ))}
           </div>
 

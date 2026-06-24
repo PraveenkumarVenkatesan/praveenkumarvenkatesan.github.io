@@ -66,7 +66,9 @@ export function getAllPublications(): Publication[] {
       journalLink: data.journalLink || undefined,
       preprintLink: data.preprintLink || undefined,
       doi: data.doi || undefined,
-      abstractImage: data.abstractImage || undefined,
+      abstractImage: data.abstractImage
+        ? `${import.meta.env.BASE_URL.replace(/\/$/, '')}${data.abstractImage.startsWith('/') ? '' : '/'}${data.abstractImage}`
+        : undefined,
     });
   }
 

@@ -6,95 +6,95 @@
 
 @layer base {
   :root {
-    /* Light theme - earthy sage, olive & oat */
-    --background: 50 16% 95%;
-    --foreground: 100 12% 15%;
+    /* Light theme - deep teal (#155665) */
+    --background: 192 22% 96%;
+    --foreground: 196 30% 13%;
 
-    --card: 50 14% 92%;
-    --card-foreground: 100 12% 15%;
+    --card: 192 20% 93%;
+    --card-foreground: 196 30% 13%;
 
-    --popover: 50 16% 96%;
-    --popover-foreground: 100 12% 15%;
+    --popover: 192 22% 97%;
+    --popover-foreground: 196 30% 13%;
 
-    --primary: 140 24% 35%;
-    --primary-foreground: 60 20% 97%;
+    --primary: 191 66% 24%;
+    --primary-foreground: 192 30% 97%;
 
-    --secondary: 50 12% 88%;
-    --secondary-foreground: 100 12% 20%;
+    --secondary: 192 18% 89%;
+    --secondary-foreground: 196 28% 18%;
 
-    --muted: 50 12% 89%;
-    --muted-foreground: 110 8% 38%;
+    --muted: 192 16% 90%;
+    --muted-foreground: 195 12% 38%;
 
-    --accent: 135 26% 42%;
-    --accent-foreground: 60 20% 97%;
+    --accent: 191 55% 34%;
+    --accent-foreground: 192 30% 97%;
 
-    --destructive: 8 55% 50%;
+    --destructive: 4 60% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 56 12% 82%;
-    --input: 56 12% 82%;
-    --ring: 140 24% 35%;
+    --border: 192 18% 84%;
+    --input: 192 18% 84%;
+    --ring: 191 66% 24%;
 
     --radius: 1rem;
 
     /* Custom glass tokens - light */
-    --glass-bg: 50 16% 96% / 0.85;
-    --glass-border: 56 12% 72% / 0.5;
-    --glass-highlight: 135 26% 44% / 0.07;
+    --glass-bg: 192 22% 97% / 0.85;
+    --glass-border: 192 18% 74% / 0.5;
+    --glass-highlight: 191 55% 38% / 0.07;
 
     /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(140 26% 33%), hsl(120 22% 46%));
-    --gradient-glass: linear-gradient(135deg, hsl(50 16% 96% / 0.95), hsl(50 12% 90% / 0.8));
-    --gradient-hero: radial-gradient(ellipse at 70% 50%, hsl(135 26% 44% / 0.09), transparent 60%);
+    --gradient-primary: linear-gradient(135deg, hsl(191 66% 24%), hsl(189 50% 38%));
+    --gradient-glass: linear-gradient(135deg, hsl(192 22% 97% / 0.95), hsl(192 18% 91% / 0.8));
+    --gradient-hero: radial-gradient(ellipse at 70% 50%, hsl(191 55% 38% / 0.09), transparent 60%);
 
     /* Shadows */
-    --shadow-glass: 0 8px 32px hsl(110 18% 24% / 0.12);
-    --shadow-glow: 0 0 30px hsl(135 24% 40% / 0.12);
+    --shadow-glass: 0 8px 32px hsl(196 30% 22% / 0.12);
+    --shadow-glow: 0 0 30px hsl(191 55% 34% / 0.13);
   }
 
   .dark {
-    /* Dark theme - earthy moss night */
-    --background: 110 14% 8%;
-    --foreground: 60 14% 90%;
+    /* Dark theme - deep teal night */
+    --background: 196 35% 7%;
+    --foreground: 192 20% 91%;
 
-    --card: 110 12% 11%;
-    --card-foreground: 60 14% 90%;
+    --card: 196 28% 10%;
+    --card-foreground: 192 20% 91%;
 
-    --popover: 110 12% 11%;
-    --popover-foreground: 60 14% 90%;
+    --popover: 196 28% 10%;
+    --popover-foreground: 192 20% 91%;
 
-    --primary: 135 28% 50%;
-    --primary-foreground: 110 22% 9%;
+    --primary: 189 52% 48%;
+    --primary-foreground: 196 35% 8%;
 
-    --secondary: 110 10% 15%;
-    --secondary-foreground: 60 14% 90%;
+    --secondary: 196 22% 15%;
+    --secondary-foreground: 192 20% 91%;
 
-    --muted: 110 9% 17%;
-    --muted-foreground: 90 10% 62%;
+    --muted: 196 18% 17%;
+    --muted-foreground: 192 14% 64%;
 
-    --accent: 130 30% 56%;
-    --accent-foreground: 110 22% 9%;
+    --accent: 187 55% 54%;
+    --accent-foreground: 196 35% 8%;
 
-    --destructive: 8 60% 55%;
+    --destructive: 4 65% 55%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 110 10% 19%;
-    --input: 110 10% 19%;
-    --ring: 135 28% 50%;
+    --border: 196 18% 19%;
+    --input: 196 18% 19%;
+    --ring: 189 52% 48%;
 
     /* Custom glass tokens - dark */
-    --glass-bg: 110 12% 12% / 0.6;
-    --glass-border: 130 22% 40% / 0.3;
-    --glass-highlight: 130 30% 60% / 0.08;
+    --glass-bg: 196 28% 11% / 0.6;
+    --glass-border: 190 35% 42% / 0.3;
+    --glass-highlight: 187 55% 58% / 0.08;
 
     /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(135 30% 44%), hsl(120 24% 58%));
-    --gradient-glass: linear-gradient(135deg, hsl(110 12% 15% / 0.8), hsl(110 12% 11% / 0.6));
-    --gradient-hero: radial-gradient(ellipse at 70% 50%, hsl(135 30% 40% / 0.14), transparent 60%);
+    --gradient-primary: linear-gradient(135deg, hsl(189 52% 42%), hsl(186 48% 56%));
+    --gradient-glass: linear-gradient(135deg, hsl(196 24% 15% / 0.8), hsl(196 28% 10% / 0.6));
+    --gradient-hero: radial-gradient(ellipse at 70% 50%, hsl(189 52% 40% / 0.14), transparent 60%);
 
     /* Shadows */
-    --shadow-glass: 0 8px 32px hsl(110 30% 3% / 0.6);
-    --shadow-glow: 0 0 50px hsl(135 28% 42% / 0.24);
+    --shadow-glass: 0 8px 32px hsl(196 50% 3% / 0.6);
+    --shadow-glow: 0 0 50px hsl(189 52% 44% / 0.24);
   }
 
   html {
@@ -120,17 +120,17 @@
 @layer components {
   .glass-panel {
     @apply bg-card/70 backdrop-blur-xl border border-primary/20 rounded-2xl;
-    box-shadow: 0 4px 30px hsl(135 24% 34% / 0.12), 0 0 40px hsl(130 26% 40% / 0.07), 0 1px 3px hsl(110 18% 18% / 0.08);
+    box-shadow: 0 4px 30px hsl(191 40% 28% / 0.12), 0 0 40px hsl(189 45% 36% / 0.07), 0 1px 3px hsl(196 30% 16% / 0.08);
   }
 
   .glass-panel-subtle {
     @apply bg-card/50 backdrop-blur-lg border border-primary/15 rounded-xl;
-    box-shadow: 0 2px 24px hsl(135 24% 34% / 0.1), 0 0 32px hsl(130 26% 40% / 0.05), 0 1px 2px hsl(110 18% 18% / 0.06);
+    box-shadow: 0 2px 24px hsl(191 40% 28% / 0.1), 0 0 32px hsl(189 45% 36% / 0.05), 0 1px 2px hsl(196 30% 16% / 0.06);
   }
 
   .glass-nav {
     @apply bg-background/70 backdrop-blur-2xl border border-border/40 rounded-2xl;
-    box-shadow: 0 8px 32px hsl(115 22% 12% / 0.12), inset 0 1px 0 hsl(0 0% 100% / 0.06);
+    box-shadow: 0 8px 32px hsl(196 30% 12% / 0.12), inset 0 1px 0 hsl(0 0% 100% / 0.06);
   }
 
   .text-gradient {
@@ -139,7 +139,7 @@
   }
 
   .glow-text {
-    text-shadow: 0 0 24px hsl(135 28% 42% / 0.2);
+    text-shadow: 0 0 24px hsl(189 50% 42% / 0.2);
   }
 
   .hover-glow {
