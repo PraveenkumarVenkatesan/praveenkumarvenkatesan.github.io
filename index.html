@@ -1,7 +1,17 @@
 <!doctype html>
-<html lang="en" class="dark">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <!-- Default to light theme; only switch to dark if the visitor explicitly chose it -->
+    <script>
+      (function () {
+        try {
+          if (localStorage.getItem("theme") === "dark") {
+            document.documentElement.classList.add("dark");
+          }
+        } catch (e) {}
+      })();
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title> Praveenkumar Venkatesan |  Doctoral Student @ IIT Madras</title>
     <meta name="description" content="Personal portfolio of Praveenkumar Venkatesan -  specializing in atmospheric dynamics, machine learning, and complex systems research." />
