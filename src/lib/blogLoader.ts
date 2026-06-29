@@ -1,3 +1,5 @@
+import { withBaseUrl } from "@/lib/utils";
+
 export interface BlogPost {
   slug: string;
   title: string;
@@ -60,7 +62,7 @@ export function getAllBlogPosts(): BlogPost[] {
       date: data.date || '',
       readTime: data.readTime || '5 min read',
       category: data.category || 'General',
-      thumbnail: data.thumbnail || undefined,
+      thumbnail: withBaseUrl(data.thumbnail || undefined),
     });
   }
 

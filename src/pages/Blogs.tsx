@@ -11,6 +11,7 @@ import {
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { getAllBlogPosts, BlogPost } from "@/lib/blogLoader";
+import { withBaseUrl } from "@/lib/utils";
 
 const Blogs = () => {
   const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
@@ -147,7 +148,14 @@ const Blogs = () => {
                 {selectedPost.excerpt}
               </DialogDescription>
               <div className="mt-6 prose prose-sm sm:prose dark:prose-invert max-w-none prose-headings:font-serif prose-headings:text-foreground prose-p:text-foreground prose-strong:text-foreground prose-blockquote:text-muted-foreground prose-blockquote:border-primary prose-a:text-primary prose-li:text-foreground">
-                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                <ReactMarkdown
+                  remarkPlugins={[remarkGfm]}
+                  components={{
+                    img: ({ src, alt, ...props }) => (
+                      <img src={withBaseUrl(src as string)} alt={alt} {...props} />
+                    ),
+                  }}
+                >
                   {selectedPost.content}
                 </ReactMarkdown>
               </div>
