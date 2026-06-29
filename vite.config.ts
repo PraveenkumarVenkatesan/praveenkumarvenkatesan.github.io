@@ -39,9 +39,8 @@ const spa404Fallback = () => ({
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  // GitHub Pages serves from /Personal-Website/ in production,
-  // but local dev (npm run dev) serves from the root for easy previewing.
-  base: mode === 'production' ? '/Personal-Website/' : '/',
+  // Served as a GitHub user page (praveenkumarvenkatesan.github.io) at the root.
+  base: '/',
   server: {
     host: "::",
     port: 8080,
