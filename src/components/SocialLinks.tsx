@@ -18,7 +18,7 @@ const socialLinks = [
   { icon: Linkedin, href: "https://www.linkedin.com/in/praveenkumar-venkatesan-418b8b290", label: "LinkedIn" },
   { icon: Mail, href: "mailto:praveen2vsp@gmail.com", label: "Email" },
   { icon: Instagram, href: "https://www.instagram.com/photographies_de_physicien", label: "Instagram" },
-  { icon: GraduationCap, href: "https://scholar.google.com/citations?user=BdknCrEAAAAJ&hl=en&authuser=1", label: "Google Scholar" },
+  { icon: GraduationCap, href: "https://scholar.google.com/citations?user=_1OY5IoAAAAJ&hl=en&oi=ao", label: "Google Scholar" },
   { icon: ResearchGateIcon, href: "https://www.researchgate.net/profile/Praveenkumar-Venkatesan-2?ev=hdr_xprf", label: "ResearchGate", isCustom: true },
   { icon: OrcidIcon, href: "https://orcid.org/my-orcid?orcid=0000-0002-0631-7119", label: "ORCID", isCustom: true },
 ];
