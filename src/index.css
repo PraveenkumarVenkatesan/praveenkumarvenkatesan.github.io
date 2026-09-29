@@ -42,6 +42,17 @@
     --glass-border: 192 18% 74% / 0.5;
     --glass-highlight: 191 55% 38% / 0.07;
 
+    /* Liquid glass - light */
+    --lg-tint: 0 0% 100% / 0.2;
+    --lg-tint-strong: 0 0% 100% / 0.45;
+    --lg-highlight: 0 0% 100% / 1;
+    --lg-rim-a: 0 0% 100% / 1;
+    --lg-rim-b: 0 0% 100% / 0.3;
+    --lg-sheen: 0 0% 100% / 0.6;
+    --lg-inner: 196 40% 20% / 0.14;
+    --lg-shade: 196 40% 10% / 0.22;
+    --ambient-opacity: 0.35;
+
     /* Gradients */
     --gradient-primary: linear-gradient(135deg, hsl(191 66% 24%), hsl(189 50% 38%));
     --gradient-glass: linear-gradient(135deg, hsl(192 22% 97% / 0.95), hsl(192 18% 91% / 0.8));
@@ -87,6 +98,17 @@
     --glass-border: 190 35% 42% / 0.3;
     --glass-highlight: 187 55% 58% / 0.08;
 
+    /* Liquid glass - dark */
+    --lg-tint: 196 30% 16% / 0.2;
+    --lg-tint-strong: 196 30% 24% / 0.4;
+    --lg-highlight: 0 0% 100% / 0.4;
+    --lg-rim-a: 0 0% 100% / 0.6;
+    --lg-rim-b: 0 0% 100% / 0.08;
+    --lg-sheen: 0 0% 100% / 0.14;
+    --lg-inner: 0 0% 0% / 0.35;
+    --lg-shade: 196 60% 2% / 0.7;
+    --ambient-opacity: 0.28;
+
     /* Gradients */
     --gradient-primary: linear-gradient(135deg, hsl(189 52% 42%), hsl(186 48% 56%));
     --gradient-glass: linear-gradient(135deg, hsl(196 24% 15% / 0.8), hsl(196 28% 10% / 0.6));
@@ -118,19 +140,138 @@
 }
 
 @layer components {
+  /*
+   * Liquid glass (macOS-style): translucent tint over a blurred, saturated
+   * backdrop, a specular rim that catches light top-left, and a soft sheen.
+   */
+  .liquid-glass,
+  .glass-panel,
+  .glass-panel-subtle,
+  .glass-nav,
+  .publication-card,
+  .btn-ghost,
+  .social-icon {
+    position: relative;
+    isolation: isolate;
+    background: linear-gradient(180deg, hsl(var(--lg-tint-strong)), hsl(var(--lg-tint)));
+    -webkit-backdrop-filter: blur(14px) saturate(200%) brightness(1.05);
+    backdrop-filter: blur(14px) saturate(200%) brightness(1.05);
+    box-shadow:
+      inset 0 1.5px 0 hsl(var(--lg-highlight)),
+      inset 1px 0 0 hsl(var(--lg-rim-b)),
+      inset 0 -1px 0 hsl(var(--lg-rim-b)),
+      inset 0 12px 18px -14px hsl(var(--lg-sheen)),
+      inset 0 -12px 20px -14px hsl(var(--lg-inner)),
+      0 14px 44px -12px hsl(var(--lg-shade)),
+      0 3px 10px -3px hsl(var(--lg-shade));
+  }
+
+  /* Specular rim */
+  .liquid-glass::before,
+  .glass-panel::before,
+  .glass-panel-subtle::before,
+  .glass-nav::before,
+  .publication-card::before,
+  .btn-ghost::before,
+  .social-icon::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1.5px;
+    border-radius: inherit;
+    background: linear-gradient(
+      135deg,
+      hsl(var(--lg-rim-a)),
+      hsl(var(--lg-rim-b)) 35%,
+      hsl(var(--lg-rim-b)) 65%,
+      hsl(var(--lg-rim-a))
+    );
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  /* Soft sheen, painted above the tint but below content */
+  .liquid-glass::after,
+  .glass-panel::after,
+  .glass-panel-subtle::after,
+  .glass-nav::after,
+  .publication-card::after,
+  .btn-ghost::after,
+  .social-icon::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background:
+      radial-gradient(120% 70% at 15% 0%, hsl(var(--lg-sheen)), transparent 55%),
+      radial-gradient(80% 50% at 90% 110%, hsl(var(--lg-sheen)), transparent 60%);
+    pointer-events: none;
+  }
+
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .liquid-glass,
+    .glass-panel,
+    .glass-panel-subtle,
+    .glass-nav,
+    .publication-card,
+    .btn-ghost,
+    .social-icon {
+      background: hsl(var(--card) / 0.94);
+    }
+  }
+
   .glass-panel {
-    @apply bg-card/70 backdrop-blur-xl border border-primary/20 rounded-2xl;
-    box-shadow: 0 4px 30px hsl(191 40% 28% / 0.12), 0 0 40px hsl(189 45% 36% / 0.07), 0 1px 3px hsl(196 30% 16% / 0.08);
+    @apply rounded-2xl;
+  }
+
+  /* Drifting colour fields behind inner pages */
+  .ambient {
+    @apply fixed inset-0 pointer-events-none overflow-hidden;
+  }
+
+  .ambient-blob {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(70px);
+    opacity: var(--ambient-opacity);
+    animation: ambient-drift 26s ease-in-out infinite alternate;
+  }
+
+  .ambient-blob-a {
+    width: 44vw; height: 44vw; top: -12%; left: -10%;
+    background: hsl(var(--primary) / 0.4);
+  }
+
+  .ambient-blob-b {
+    width: 38vw; height: 38vw; top: 28%; right: -12%;
+    background: hsl(var(--accent) / 0.35);
+    animation-delay: -9s;
+  }
+
+  .ambient-blob-c {
+    width: 32vw; height: 32vw; bottom: -14%; left: 30%;
+    background: hsl(205 45% 55% / 0.3);
+    animation-delay: -17s;
+  }
+
+  @keyframes ambient-drift {
+    from { transform: translate(0, 0) scale(1); }
+    to { transform: translate(6vw, 5vh) scale(1.12); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ambient-blob { animation: none; }
   }
 
   .glass-panel-subtle {
-    @apply bg-card/50 backdrop-blur-lg border border-primary/15 rounded-xl;
-    box-shadow: 0 2px 24px hsl(191 40% 28% / 0.1), 0 0 32px hsl(189 45% 36% / 0.05), 0 1px 2px hsl(196 30% 16% / 0.06);
+    @apply rounded-xl;
   }
 
   .glass-nav {
-    @apply bg-background/70 backdrop-blur-2xl border border-border/40 rounded-2xl;
-    box-shadow: 0 8px 32px hsl(196 30% 12% / 0.12), inset 0 1px 0 hsl(0 0% 100% / 0.06);
+    @apply rounded-2xl;
   }
 
   .text-gradient {
@@ -156,6 +297,7 @@
 
   .nav-pill.active {
     @apply text-primary bg-primary/10;
+    box-shadow: inset 0 1px 0 hsl(var(--lg-highlight)), 0 1px 4px -1px hsl(var(--lg-shade));
   }
 
   .typing-cursor {
@@ -163,7 +305,7 @@
   }
 
   .publication-card {
-    @apply glass-panel-subtle p-6 hover:bg-card/60 transition-all duration-300 hover:border-primary/30;
+    @apply rounded-xl p-6 transition-all duration-300 hover:-translate-y-0.5;
   }
 
   .tab-button {
@@ -175,7 +317,7 @@
   }
 
   .social-icon {
-    @apply w-10 h-10 rounded-full bg-muted/50 backdrop-blur-sm flex items-center justify-center text-muted-foreground cursor-pointer hover:text-primary hover:bg-primary/20 hover:-translate-y-0.5 hover:shadow-glow transition-all duration-300;
+    @apply w-10 h-10 rounded-full flex items-center justify-center text-muted-foreground cursor-pointer hover:text-primary hover:-translate-y-0.5 hover:scale-105 transition-all duration-300;
   }
 
   .btn-primary {
@@ -184,7 +326,13 @@
   }
 
   .btn-ghost {
-    @apply inline-flex items-center justify-center gap-2 rounded-full border border-border bg-card/40 backdrop-blur-sm px-6 py-3 text-sm sm:text-base font-medium text-foreground transition-all duration-300 hover:bg-card/70 hover:border-primary/40 hover:-translate-y-0.5 cursor-pointer;
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm sm:text-base font-medium text-foreground transition-all duration-300 hover:-translate-y-0.5 hover:scale-[1.02] cursor-pointer;
+  }
+
+  .btn-ghost:hover,
+  .social-icon:hover,
+  .publication-card:hover {
+    --lg-tint: var(--lg-tint-strong);
   }
 
   .section-title {

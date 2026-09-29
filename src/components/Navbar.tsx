@@ -30,7 +30,7 @@ export const Navbar = () => {
       <nav
         className={cn(
           "glass-nav mx-auto max-w-6xl 2xl:max-w-7xl px-3 sm:px-4 2xl:px-6 transition-all duration-300",
-          isScrolled && "max-w-5xl 2xl:max-w-6xl shadow-glow border-primary/20"
+          isScrolled && "max-w-5xl 2xl:max-w-6xl"
         )}
       >
         <div className="h-14 sm:h-16 2xl:h-18 flex items-center justify-between gap-4">

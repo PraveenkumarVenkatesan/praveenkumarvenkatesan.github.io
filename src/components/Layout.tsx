@@ -8,10 +8,11 @@ interface LayoutProps {
 export const Layout = ({ children }: LayoutProps) => {
   return (
     <div className="min-h-screen bg-background relative overflow-hidden flex flex-col">
-      {/* Ambient background effects */}
-      <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-gradient-hero opacity-50" />
-        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl" />
+      {/* Ambient colour for the liquid glass to refract */}
+      <div className="ambient" aria-hidden="true">
+        <span className="ambient-blob ambient-blob-a" />
+        <span className="ambient-blob ambient-blob-b" />
+        <span className="ambient-blob ambient-blob-c" />
       </div>
 
       <Navbar />

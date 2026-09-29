@@ -5,7 +5,7 @@ const highlights = [
   {
     icon: GraduationCap,
     title: "Education",
-    description: "M. Sc., Physics @ BDU",
+    lines: ["Ph.D., Aerospace Engineering @ IIT Madras", "M. Sc., Physics @ BDU"],
   }
 ];
 
@@ -46,8 +46,14 @@ const About = () => {
                   and abrupt regime shifts across disciplines.
                 </p>
               </div>
+            </div>
 
-              <div className="glass-panel p-8 2xl:p-10 space-y-4 2xl:space-y-6">
+            {/* Sidebar: research interests + highlights */}
+            <div className="lg:col-span-2 space-y-4 2xl:space-y-6">
+              <div
+                className="glass-panel p-6 2xl:p-8 space-y-4 2xl:space-y-6 animate-fade-in"
+                style={{ animationDelay: "0.15s" }}
+              >
                 <h2 className="text-2xl 2xl:text-3xl font-serif font-semibold text-foreground">
                   Research Interests
                 </h2>
@@ -70,10 +76,7 @@ const About = () => {
                   ))}
                 </div>
               </div>
-            </div>
 
-            {/* Highlights sidebar */}
-            <div className="lg:col-span-2 space-y-4 2xl:space-y-6">
               {highlights.map((item, index) => (
                 <div
                   key={item.title}
@@ -88,9 +91,13 @@ const About = () => {
                       <h3 className="font-semibold text-foreground mb-1 text-base 2xl:text-lg">
                         {item.title}
                       </h3>
-                      <p className="text-muted-foreground text-sm 2xl:text-base">
-                        {item.description}
-                      </p>
+                      <ul className="space-y-1">
+                        {item.lines.map((line) => (
+                          <li key={line} className="text-muted-foreground text-sm 2xl:text-base">
+                            {line}
+                          </li>
+                        ))}
+                      </ul>
                     </div>
                   </div>
                 </div>
