@@ -33,7 +33,7 @@ export const Navbar = () => {
           isScrolled && "max-w-5xl 2xl:max-w-6xl"
         )}
       >
-        <div className="h-14 sm:h-16 2xl:h-18 flex items-center justify-between gap-4">
+        <div className="h-14 sm:h-16 2xl:h-[4.5rem] flex items-center justify-between gap-4">
           <Link
             to="/"
             className="text-base sm:text-lg 2xl:text-xl font-serif font-semibold text-foreground hover:text-primary transition-colors duration-300 whitespace-nowrap"

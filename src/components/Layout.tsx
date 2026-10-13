@@ -16,7 +16,7 @@ export const Layout = ({ children }: LayoutProps) => {
       </div>
 
       <Navbar />
-      <main className="relative z-10 flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 2xl:max-w-[1400px]">
+      <main className="relative z-10 flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 2xl:max-w-[87.5rem]">
         {children}
       </main>
       <Footer />
