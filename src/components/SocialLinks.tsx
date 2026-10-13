@@ -1,4 +1,5 @@
 import { Linkedin, Mail, Instagram, GraduationCap } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 // Custom ResearchGate icon - official RG logo
 const ResearchGateIcon = ({ className }: { className?: string }) => (
@@ -23,19 +24,35 @@ const socialLinks = [
   { icon: OrcidIcon, href: "https://orcid.org/my-orcid?orcid=0000-0002-0631-7119", label: "ORCID", isCustom: true },
 ];
 
-export const SocialLinks = () => {
+interface SocialLinksProps {
+  /** Show only the links with these labels (e.g. ["Google Scholar"]). Defaults to all. */
+  only?: string[];
+  className?: string;
+  /** "sm" matches the height of tab buttons; "md" is the default. */
+  size?: "sm" | "md";
+}
+
+const sizes = {
+  sm: { button: "w-8 h-8 sm:w-9 sm:h-9 2xl:w-11 2xl:h-11", icon: "w-4 h-4 2xl:w-5 2xl:h-5" },
+  md: { button: "2xl:w-12 2xl:h-12", icon: "w-5 h-5 2xl:w-6 2xl:h-6" },
+};
+
+export const SocialLinks = ({ only, className, size = "md" }: SocialLinksProps) => {
+  const links = only ? socialLinks.filter((link) => only.includes(link.label)) : socialLinks;
+
   return (
-    <div className="flex items-center gap-3 2xl:gap-4">
-      {socialLinks.map((link) => (
+    <div className={cn("flex items-center gap-3 2xl:gap-4", className)}>
+      {links.map((link) => (
         <a
           key={link.label}
           href={link.href}
           aria-label={link.label}
-          className="social-icon 2xl:w-12 2xl:h-12"
+          title={link.label}
+          className={cn("social-icon", sizes[size].button)}
           target="_blank"
           rel="noopener noreferrer"
         >
-          <link.icon className="w-5 h-5 2xl:w-6 2xl:h-6" />
+          <link.icon className={sizes[size].icon} />
         </a>
       ))}
     </div>

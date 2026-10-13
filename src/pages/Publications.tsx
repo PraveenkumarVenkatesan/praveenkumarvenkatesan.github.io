@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Layout } from "@/components/Layout";
+import { SocialLinks } from "@/components/SocialLinks";
 import { ExternalLink, FileText } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { getAllPublications, getPublicationLink, type Publication } from "@/lib/publicationLoader";
@@ -25,7 +26,7 @@ const Publications = () => {
           </div>
 
           {/* Tabs */}
-          <div className="flex justify-center gap-2 sm:gap-3 2xl:gap-4 mb-8 sm:mb-12 2xl:mb-16 flex-wrap px-2">
+          <div className="flex justify-center items-center gap-2 sm:gap-3 2xl:gap-4 mb-8 sm:mb-12 2xl:mb-16 flex-wrap px-2">
             {["journal", "conference", "preprint"].map((tab) => (
               <button
                 key={tab}
@@ -38,6 +39,8 @@ const Publications = () => {
                 {tab.toUpperCase()}
               </button>
             ))}
+            {/* `contents` lets each icon sit in the tab row and share its gap */}
+            <SocialLinks only={["Google Scholar", "ResearchGate", "ORCID"]} className="contents" size="sm" />
           </div>
 
           {/* Publications */}
